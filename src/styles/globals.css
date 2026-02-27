@@ -1,0 +1,124 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Base animations */
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold tracking-tight;
+  }
+
+  p {
+    @apply leading-relaxed;
+  }
+}
+
+/* Utility animations */
+@layer utilities {
+  .animate-fade-in {
+    @apply animate-fadeIn;
+  }
+
+  .animate-slide-up {
+    @apply animate-slideUp;
+  }
+
+  .animate-slide-down {
+    @apply animate-slideDown;
+  }
+
+  .glass {
+    @apply bg-white/10 backdrop-blur-md border border-white/20;
+  }
+
+  .glass-light {
+    @apply bg-white/30 backdrop-blur-sm border border-white/30;
+  }
+
+  .gradient-primary {
+    @apply bg-gradient-to-br from-primary via-primary to-teal;
+  }
+
+  .gradient-accent {
+    @apply bg-gradient-to-r from-accent to-gold;
+  }
+
+  .gradient-warm {
+    @apply bg-gradient-to-r from-accent via-gold to-orange-500;
+  }
+
+  .shadow-primary {
+    @apply shadow-lg shadow-primary/20;
+  }
+
+  .shadow-accent {
+    @apply shadow-lg shadow-accent/30;
+  }
+
+  .btn-primary {
+    @apply px-8 py-3 rounded-lg font-semibold transition-all duration-300
+      bg-gradient-to-r from-primary to-teal text-white hover:shadow-lg hover:shadow-primary/50 
+      hover:scale-105 active:scale-95;
+  }
+
+  .btn-accent {
+    @apply px-8 py-3 rounded-lg font-semibold transition-all duration-300
+      bg-gradient-to-r from-accent to-gold text-white hover:shadow-lg hover:shadow-accent/50 
+      hover:scale-105 active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply px-8 py-3 rounded-lg font-semibold transition-all duration-300
+      border-2 border-primary text-primary hover:bg-primary hover:text-white 
+      active:scale-95;
+  }
+
+  .card {
+    @apply bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 
+      hover:translate-y-[-4px] border border-gray-100;
+  }
+
+  .card-glass {
+    @apply glass rounded-xl backdrop-blur-lg p-6 transition-all duration-300 
+      hover:shadow-lg hover:translate-y-[-4px];
+  }
+
+  /* Input styles for forms */
+  .input {
+    @apply w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition;
+  }
+
+  .textarea {
+    @apply w-full px-4 py-2 border border-gray-300 rounded-md h-32 resize-none focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition;
+  }
+
+  .badge-primary {
+    @apply px-4 py-2 rounded-full bg-primary/10 border border-primary/30 text-primary font-semibold text-sm;
+  }
+
+  .badge-accent {
+    @apply px-4 py-2 rounded-full bg-accent/10 border border-accent/30 text-accent font-semibold text-sm;
+  }
+
+  .text-gradient-primary {
+    @apply bg-gradient-to-r from-primary via-primary to-teal bg-clip-text text-transparent;
+  }
+
+  .text-gradient-warm {
+    @apply bg-gradient-to-r from-accent via-gold to-orange-500 bg-clip-text text-transparent;
+  }
+}
