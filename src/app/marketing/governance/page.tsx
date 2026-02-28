@@ -1,11 +1,11 @@
 export default function GovernancePage() {
   const board = [
     { name: "Dr. Amina Yusuf", role: "Chair, Board of Trustees" },
-    { name: "Mr. Ibrahim Musa", role: "Trustee" },
+    { name: "Shalon Yusuf", role: "Trustee" },
   ];
   const executives = [
-    { name: "Fatima Ahmed", role: "Executive Director" },
-    { name: "Aliyu Abdullahi", role: "Program Manager" },
+    { name: "Isac Yarima", role: "Executive Director" },
+    { name: "Aminu balarabe", role: "Program Manager" },
   ];
 
   return (
