@@ -4,8 +4,8 @@ import { revalidatePath } from "next/cache";
 interface ContactForm {
   name: string;
   email: string;
-  type: string;
-  message: string;
+  type: "Volunteer" | "Partner";
+  message?: string;
 }
 
 export async function contactAction(data: ContactForm) {
