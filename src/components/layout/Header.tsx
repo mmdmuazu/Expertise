@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 
@@ -8,13 +7,12 @@ export function Header() {
   const [open, setOpen] = useState(false);
 
   const links = [
-    { href: "/", label: "Home" },
-    { href: "/marketing/about", label: "About" },
-    { href: "/marketing/programs", label: "Programs" },
-    { href: "/marketing/impact", label: "Impact" },
-    { href: "/marketing/partners", label: "Partners" },
-    { href: "/marketing/contact", label: "Contact" },
-    { href: "/marketing/governance", label: "Team" },
+    { href: "#home", label: "Home" },
+    { href: "#about", label: "About" },
+    { href: "#programs", label: "Programs" },
+    { href: "#impact", label: "Impact" },
+    { href: "#team", label: "Team" },
+    { href: "#contact", label: "Contact" },
   ];
 
   return (
@@ -22,7 +20,7 @@ export function Header() {
       <nav className="glass backdrop-blur-lg border-b border-white/20 bg-white/80">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           {/* Logo */}
-          <Link href="/" className="group flex items-center gap-2">
+          <a href="#home" className="group flex items-center gap-2">
             <div className="w-10 h-10 relative">
               <img
                 src="/logo.png"
@@ -36,27 +34,27 @@ export function Header() {
               </span>
               <span className="text-xs text-accent font-semibold">Hub</span>
             </div>
-          </Link>
+          </a>
 
           {/* desktop links */}
           <ul className="hidden md:flex space-x-1">
             {links.map((l) => (
               <li key={l.href}>
-                <Link
+                <a
                   href={l.href}
                   className="px-4 py-2 rounded-lg text-gray-700 hover:text-primary hover:bg-primary/10 transition-all duration-300 font-medium"
                 >
                   {l.label}
-                </Link>
+                </a>
               </li>
             ))}
             <li>
-              <Link
-                href="/marketing/get-involved"
+              <a
+                href="#contact"
                 className="px-4 py-2 rounded-lg btn-accent text-white font-semibold hover:shadow-lg hover:shadow-accent/50 transition-all duration-300 hover:scale-105 active:scale-95"
               >
                 Get Involved
-              </Link>
+              </a>
             </li>
           </ul>
 
@@ -76,23 +74,23 @@ export function Header() {
             <ul className="flex flex-col space-y-1 px-4 py-2">
               {links.map((l) => (
                 <li key={l.href}>
-                  <Link
+                  <a
                     href={l.href}
                     className="block px-3 py-2 rounded-lg text-gray-700 hover:text-primary hover:bg-primary/10 transition-all duration-300 font-medium"
                     onClick={() => setOpen(false)}
                   >
                     {l.label}
-                  </Link>
+                  </a>
                 </li>
               ))}
               <li>
-                <Link
-                  href="/marketing/get-involved"
+                <a
+                  href="#contact"
                   className="block px-3 py-2 rounded-lg btn-accent text-white font-semibold hover:shadow-lg hover:shadow-accent/50 transition-all duration-300 hover:scale-105 active:scale-95"
                   onClick={() => setOpen(false)}
                 >
                   Get Involved
-                </Link>
+                </a>
               </li>
             </ul>
           </div>

@@ -1,5 +1,33 @@
+"use client";
 import Link from "next/link";
 import { BookOpen, Users, Lightbulb, TrendingUp } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ContactForm } from "../components/sections/ContactForm";
+import { contactAction } from "./actions/contact";
+
+function Counter({ value }: { value: number }) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    let start = 0;
+    const duration = 1200;
+    const stepTime = 20;
+    const step = Math.ceil(value / (duration / stepTime));
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= value) {
+        start = value;
+        clearInterval(timer);
+      }
+      setCount(start);
+    }, stepTime);
+    return () => clearInterval(timer);
+  }, [value]);
+  return (
+    <span className="font-bold text-2xl text-primary">
+      {count.toLocaleString()}
+    </span>
+  );
+}
 
 export default function HomePage() {
   const pillars = [
@@ -15,6 +43,8 @@ export default function HomePage() {
         "Soft Skills",
         "Internships",
       ],
+      fullDescription:
+        "Digital skills (Web Dev, Graphics, Animation), vocational skills (solar, CCTV, production), soft skills & work readiness, internship & placement support. Impact: increased employability and income generation.",
     },
     {
       icon: Users,
@@ -28,6 +58,8 @@ export default function HomePage() {
         "Anti-Drug Campaigns",
         "Youth Rights",
       ],
+      fullDescription:
+        "Gender equality campaigns, anti-drug awareness, mental health education, youth civic responsibility. Impact: reduced vulnerability and increased social inclusion.",
     },
     {
       icon: TrendingUp,
@@ -41,6 +73,8 @@ export default function HomePage() {
         "Volunteering",
         "Community Service",
       ],
+      fullDescription:
+        "Youth Leadership Academy, school clubs, volunteer mobilization, community projects. Impact: youth become change-makers.",
     },
     {
       icon: Lightbulb,
@@ -54,6 +88,8 @@ export default function HomePage() {
         "Grants",
         "Mentorship",
       ],
+      fullDescription:
+        "Ideation workshops, startup bootcamps, youth enterprise grants, mentorship & incubation. Impact: youth transition from job seekers to job creators.",
     },
   ];
 
@@ -64,10 +100,31 @@ export default function HomePage() {
     { number: "1M+", label: "Awareness Reach", icon: "📢" },
   ];
 
+  const impactStats = [
+    { label: "Youth trained", value: 50000 },
+    { label: "States reached", value: 5 },
+    { label: "Pillars active", value: 4 },
+    { label: "People reached", value: 1000000 },
+  ];
+
+  const team = {
+    board: [
+      { name: "Dr. Amina Yusuf", role: "Chair, Board of Trustees" },
+      { name: "Mr. Ibrahim Musa", role: "Trustee" },
+    ],
+    executives: [
+      { name: "Fatima Ahmed", role: "Executive Director" },
+      { name: "Aliyu Abdullahi", role: "Program Manager" },
+    ],
+  };
+
   return (
     <main className="bg-white">
       {/* Hero Section */}
-      <section className="relative overflow-hidden pt-20 md:pt-32 pb-20">
+      <section
+        id="home"
+        className="p-20 text-white bg-gradient-to-bl from-green-500 via-green-500 to-blue-500"
+      >
         <div className="absolute inset-0 -z-10">
           <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-primary/20 to-transparent rounded-full blur-3xl" />
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-accent/20 to-transparent rounded-full blur-3xl" />
@@ -75,7 +132,9 @@ export default function HomePage() {
 
         <div className="max-w-7xl mx-auto px-6 text-center space-y-8 animate-fade-in">
           <h1 className="text-4xl md:text-6xl font-bold">
-            Empowering Northern Nigeria’s Youth to Lead, Innovate, and Thrive
+            Empowering Northern Nigeria's{" "}
+            <span className="text-orange-400">Youth to Lead, Innovate,</span>{" "}
+            and Thrive
           </h1>
           <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto">
             We equip young people aged 14–30 with practical skills, leadership
@@ -84,28 +143,85 @@ export default function HomePage() {
           </p>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4 pt-4">
-            <Link
-              href="/marketing/get-involved"
-              className="btn-primary inline-block"
-            >
-              Partner With Us
-            </Link>
-            <Link href="/marketing/partner" className="btn-accent inline-block">
-              Support a Program
-            </Link>
-            <Link
-              href="/marketing/volunteer"
-              className="btn-secondary inline-block"
-            >
-              Join as Volunteer
-            </Link>
+            <a href="#contact" className="btn-primary inline-block">
+              Get Involved
+            </a>
+            <a href="#programs" className="btn-accent inline-block">
+              Explore Programs
+            </a>
+            <a href="#impact" className="btn-secondary inline-block">
+              View Our Impact
+            </a>
           </div>
         </div>
       </section>
 
-      {/* Vision & Mission */}
+      {/* About Section */}
+      <section id="about" className="py-20 px-6">
+        <div className="max-w-4xl mx-auto space-y-12">
+          <div className="text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
+              About Expertise Hub Empowerment Foundation
+            </h2>
+            <p className="text-lg text-gray-700">
+              We address the growing youth development crisis in Northern
+              Nigeria by equipping young people with relevant skills, structured
+              mentorship, and platforms that unlock their potential.
+            </p>
+          </div>
+
+          {/* Mission & Vision */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="card p-8 border-l-4 border-primary">
+              <h3 className="text-2xl font-semibold mb-3 text-primary">
+                Mission
+              </h3>
+              <p className="text-gray-700">
+                To empower young people in Northern Nigeria through skills
+                development, leadership training, advocacy and entrepreneurship.
+                We equip young people with relevant skills, structured
+                mentorship, and platforms that unlock their potential.
+              </p>
+            </div>
+
+            <div className="card p-8 border-l-4 border-accent">
+              <h3 className="text-2xl font-semibold mb-3 text-accent">
+                Vision
+              </h3>
+              <p className="text-gray-700">
+                A Nigeria where every young person — regardless of gender,
+                background, or location — has the skills, confidence, and
+                opportunity to thrive and lead positive change.
+              </p>
+            </div>
+          </div>
+
+          {/* The Challenge */}
+          <div className="card p-8 border-l-4 border-teal">
+            <h3 className="text-2xl font-semibold mb-3 text-teal">
+              The Challenge We Address
+            </h3>
+            <p className="text-gray-700 mb-4">
+              Northern Nigeria faces critical challenges:
+            </p>
+            <ul className="list-disc list-inside space-y-2 text-gray-700 mb-4">
+              <li>Youth unemployment and underemployment</li>
+              <li>Limited digital access and infrastructure</li>
+              <li>Barriers affecting girls and young women</li>
+              <li>Drug abuse and vulnerability issues</li>
+              <li>Weak school-to-work transition</li>
+            </ul>
+            <p className="text-gray-700">
+              Without intervention, these challenges deepen poverty and
+              instability. We exist to disrupt that cycle.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Vision & Mission Summary */}
       <section className="py-20 px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 pt-8 border-t border-gray-200">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 pt-8 border-t border-gray-200 max-w-4xl mx-auto">
           <div className="card p-6 text-left">
             <h3 className="text-xl font-bold text-primary mb-3">Our Vision</h3>
             <p className="text-gray-600">
@@ -202,7 +318,10 @@ export default function HomePage() {
       </section>
 
       {/* Featured Programs */}
-      <section className="py-20 px-6 bg-gradient-to-b from-gray-50 to-white">
+      <section
+        id="programs"
+        className="py-20 px-6 bg-gradient-to-b from-gray-50 to-white"
+      >
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
             Featured Programs
@@ -224,22 +343,12 @@ export default function HomePage() {
               );
             })}
           </div>
-          <div className="text-center mt-8">
-            <Link
-              href="/marketing/programs"
-              className="btn-primary inline-block"
-            >
-              Explore All Programs
-            </Link>
-          </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-
+      {/* Four Pillars Deep Dive */}
       <section className="py-24 px-6 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto">
-          {/* Section Header */}
           <div className="text-center mb-16 animate-slide-up">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Our Four Pillars
@@ -250,7 +359,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* Pillars Grid */}
+          {/* Interactive Pillar Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {pillars.map((pillar, idx) => {
               const Icon = pillar.icon;
@@ -258,26 +367,22 @@ export default function HomePage() {
                 <div
                   key={idx}
                   style={{ animationDelay: `${idx * 0.1}s` }}
-                  className="card p-8 group hover:shadow-accent/30 hover:border-accent/50 transition-all hover:scale-105"
+                  className="group card p-8 hover:shadow-lg hover:border-accent/50 transition-all hover:scale-105 cursor-pointer"
                 >
-                  {/* Icon */}
                   <div
                     className={`inline-flex p-4 rounded-lg bg-gradient-to-br ${pillar.color} mb-6 group-hover:scale-110 transition-transform`}
                   >
                     <Icon className="w-8 h-8 text-white" />
                   </div>
 
-                  {/* Title */}
                   <h3 className="text-2xl font-bold text-gray-900 mb-3">
                     {pillar.title}
                   </h3>
 
-                  {/* Description */}
                   <p className="text-gray-600 mb-6 leading-relaxed">
-                    {pillar.description}
+                    {pillar.fullDescription}
                   </p>
 
-                  {/* Benefits Tags */}
                   <div className="flex flex-wrap gap-2">
                     {pillar.benefits.map((benefit, i) => (
                       <span
@@ -296,7 +401,7 @@ export default function HomePage() {
       </section>
 
       {/* Impact Statistics Section */}
-      <section className="py-24 px-6 relative overflow-hidden">
+      <section id="impact" className="py-24 px-6 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 -z-10" />
 
         <div className="max-w-7xl mx-auto">
@@ -309,7 +414,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {stats.map((stat, idx) => (
               <div
                 key={idx}
@@ -319,7 +424,7 @@ export default function HomePage() {
                 <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center text-4xl rounded-lg bg-gradient-to-br from-primary to-teal">
                   {stat.icon}
                 </div>
-                <p className="text-5xl font-extrabold text-gradient-primary mb-2">
+                <p className="text-5xl font-extrabold text-primary mb-2">
                   {stat.number}
                 </p>
                 <p className="text-gray-600 font-semibold text-lg">
@@ -327,6 +432,24 @@ export default function HomePage() {
                 </p>
               </div>
             ))}
+          </div>
+
+          {/* Animated Counter Section */}
+          <div className="mt-16 pt-12 border-t">
+            <h3 className="text-2xl font-semibold mb-6 text-center">
+              Key Performance Indicators
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {impactStats.map((s) => (
+                <div
+                  key={s.label}
+                  className="p-6 bg-white rounded-lg shadow hover:shadow-lg transition text-center"
+                >
+                  <Counter value={s.value} />
+                  <p className="mt-2 text-gray-700">{s.label}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -439,6 +562,93 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Team Section */}
+      <section id="team" className="py-24 px-6">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+            Our Team & Leadership
+          </h2>
+
+          {/* Board */}
+          <div className="mb-16">
+            <h3 className="text-2xl font-semibold border-b pb-2 mb-8">
+              Board of Trustees
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {team.board.map((member) => (
+                <div
+                  key={member.name}
+                  className="p-6 bg-white rounded-lg shadow hover:shadow-lg transition"
+                >
+                  <p className="text-lg font-bold text-primary">
+                    {member.name}
+                  </p>
+                  <p className="text-gray-600 mt-1">{member.role}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Executive */}
+          <div>
+            <h3 className="text-2xl font-semibold border-b pb-2 mb-8">
+              Executive Leadership
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {team.executives.map((member) => (
+                <div
+                  key={member.name}
+                  className="p-6 bg-white rounded-lg shadow hover:shadow-lg transition"
+                >
+                  <p className="text-lg font-bold text-primary">
+                    {member.name}
+                  </p>
+                  <p className="text-gray-600 mt-1">{member.role}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Governance Statement */}
+          <div className="mt-12 p-8 bg-gradient-to-r from-primary/5 to-accent/5 rounded-lg">
+            <p className="text-gray-700 text-center">
+              We operate under strong governance principles of transparency,
+              accountability, and measurable impact.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section
+        id="contact"
+        className="py-24 px-6 bg-gradient-to-b from-gray-50 to-white"
+      >
+        <div className="max-w-lg mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
+            Get In Touch
+          </h2>
+
+          {/* Contact Info */}
+          <div className="text-center mb-12">
+            <h3 className="text-xl font-semibold mb-4">Contact Details</h3>
+            <p className="text-gray-700">
+              Hotoro, Kano State
+              <br />
+              Phone: +234-800-000-0000
+              <br />
+              Email: info@expertisehub.org
+            </p>
+          </div>
+
+          {/* Contact Form */}
+          <div className="card p-8">
+            <h3 className="text-xl font-semibold mb-4">Send us a message</h3>
+            <ContactForm action={contactAction} />
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="relative py-24 md:py-32 px-6 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-accent/10 to-teal/10 -z-10" />
@@ -456,18 +666,12 @@ export default function HomePage() {
           </p>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4 pt-4">
-            <Link
-              href="/marketing/get-involved"
-              className="btn-accent inline-block text-lg"
-            >
+            <a href="#contact" className="btn-accent inline-block text-lg">
               Join the Movement
-            </Link>
-            <Link
-              href="/marketing/about"
-              className="btn-primary inline-block text-lg"
-            >
+            </a>
+            <a href="#about" className="btn-primary inline-block text-lg">
               Learn More About Us
-            </Link>
+            </a>
           </div>
 
           <p className="text-sm text-gray-500 pt-8">
@@ -479,3 +683,7 @@ export default function HomePage() {
     </main>
   );
 }
+
+// {
+//   icon: BookOpen,
+//   title: "Skill Development & Employability",
